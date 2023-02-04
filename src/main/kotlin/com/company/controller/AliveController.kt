@@ -1,4 +1,4 @@
-package com.company
+package com.company.controller
 
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
@@ -6,8 +6,9 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class AliveController {
 
-    @GetMapping
+    @GetMapping("/alive")
     fun alive(): String {
+        print("Alive!")
         return "alive"
     }
 }
