@@ -42,6 +42,9 @@ class IdTokenVerificationFilter(
 
     private fun doFilter(request: HttpServletRequest) {
         log.info("doFilter ${request.requestURI}")
+        if ("OPTIONS" == request.method) {
+            return
+        }
         if (IGNORE_ENDPOINTS.contains(request.requestURI)) {
             return
         }
@@ -55,6 +58,7 @@ class IdTokenVerificationFilter(
         val idTokenValue: String = request.getHeader(HEADER_NAME)
             ?: throw AuthenticationException("Id token is missing")
 
+        println("ID_TOKEN: $idTokenValue")
         val idToken: GoogleIdToken = try {
             verifier.verify(idTokenValue)
         } catch (e: Exception) {
