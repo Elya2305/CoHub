@@ -41,6 +41,7 @@ class IdTokenVerificationFilter(
         val idTokenValue: String = request.getHeader(HEADER_NAME)
             ?: throw AuthenticationException("Id token is missing")
 
+        println("ID_TOKEN: $idTokenValue")
         val idToken: GoogleIdToken = try {
             verifier.verify(idTokenValue)
         } catch (e: Exception) {
