@@ -33,7 +33,7 @@ class IdTokenVerificationFilter(
     }
 
     private fun doFilter(request: HttpServletRequest) {
-        print("doFilter ${request.requestURI}")
+        println("doFilter ${request.requestURI}")
         if (IGNORE_ENDPOINTS.contains(request.requestURI)) {
             return
         }
@@ -53,7 +53,7 @@ class IdTokenVerificationFilter(
             throw AuthenticationException("Email is not verified")
         }
 
-        print("Success for $payload")
+        println("Success for $payload")
         // userService.createOrUpdate()
     }
 }
