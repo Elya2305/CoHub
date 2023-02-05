@@ -51,14 +51,11 @@ class IdTokenVerificationFilter(
         if ("root1token" == request.getHeader(HEADER_NAME)) {
             return processRoot1User()
         }
-        if ("root2token" == request.getHeader(HEADER_NAME)) {
-            return processRoot2User()
-        }
 
         val idTokenValue: String = request.getHeader(HEADER_NAME)
             ?: throw AuthenticationException("Id token is missing")
 
-        println("ID_TOKEN: $idTokenValue")
+        logger.debug("ID_TOKEN: $idTokenValue")
         val idToken: GoogleIdToken = try {
             verifier.verify(idTokenValue)
         } catch (e: Exception) {
@@ -73,16 +70,10 @@ class IdTokenVerificationFilter(
 
         val userId = userService.createIfNotPresent(SocialUser(payload.email))
         UserContext.setUserUuid(userId)
-
     }
 
     private fun processRoot1User() {
         val userId = userService.createIfNotPresent(SocialUser("root@gmail.com"))
-        UserContext.setUserUuid(userId)
-    }
-
-    private fun processRoot2User() {
-        val userId = userService.createIfNotPresent(SocialUser("root2@gmail.com"))
         UserContext.setUserUuid(userId)
     }
 }

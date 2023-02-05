@@ -9,10 +9,10 @@ object UserContext {
     }
 
     fun removeUserUuid() {
-        UserContext.userUuid.remove()
+        userUuid.remove()
     }
 
     fun getUserUuid(): String {
-        return UserContext.userUuid.get()
+        return userUuid.get()
     }
 }
