@@ -1,6 +1,7 @@
 package com.company.domain
 
 import com.company.entity.RecipeIngredient
+import com.fasterxml.jackson.annotation.JsonProperty
 
 data class IngredientDto(
     val id: String?,
@@ -20,6 +21,7 @@ data class RecipeDto(
     val category: String,
     val instructions: String,
     val pic: String,
+    @JsonProperty("youtube_url")
     val youtubeUrl: String,
     val ingredients: List<RecipeIngredient>,
 )
