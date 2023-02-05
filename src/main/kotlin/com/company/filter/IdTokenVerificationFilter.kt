@@ -39,6 +39,7 @@ class IdTokenVerificationFilter(
     }
 
     private fun doFilter(request: HttpServletRequest) {
+        println("doFilter ${request.requestURI}")
         if (IGNORE_ENDPOINTS.contains(request.requestURI)) {
             return
         }
