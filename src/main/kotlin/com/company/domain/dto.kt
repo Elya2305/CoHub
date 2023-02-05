@@ -1,5 +1,7 @@
 package com.company.domain
 
+import com.company.entity.RecipeIngredient
+
 data class IngredientDto(
     val id: String?,
     val title: String,
@@ -10,4 +12,14 @@ data class IngredientDto(
 data class CategoryDto(
     val id: String?,
     val title: String,
+)
+
+data class RecipeDto(
+    val id: String?,
+    val title: String,
+    val category: String,
+    val instructions: String,
+    val pic: String,
+    val youtubeUrl: String,
+    val ingredients: List<RecipeIngredient>,
 )
