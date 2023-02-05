@@ -9,26 +9,28 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import java.util.logging.Logger
 
 @RestController
 @RequestMapping("/ingredients")
 class IngredientController(private val ingredientService: IngredientService) {
+    private val log = Logger.getLogger(this.javaClass.name)
 
     @PostMapping
     fun save(@RequestBody ingredient: IngredientDto): IngredientDto {
-        println("Request on saving ingredient: $ingredient")
+        log.info("Request on saving ingredient: $ingredient")
         return ingredientService.save(ingredient)
     }
 
     @DeleteMapping("/{id}")
     fun delete(@PathVariable id: String) {
-        println("Request on deleting ingredient: $id")
+        log.info("Request on deleting ingredient: $id")
         ingredientService.delete(id)
     }
 
     @GetMapping
     fun all(): List<IngredientDto> {
-        println("Request on getting all ingredients")
+        log.info("Request on getting all ingredients")
         return ingredientService.all()
     }
 }

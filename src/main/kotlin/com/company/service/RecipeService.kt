@@ -1,7 +1,9 @@
 package com.company.service
 
 import com.company.domain.RecipeDto
+import com.company.domain.UserContext.getUserUuid
 import com.company.entity.Recipe
+import com.company.exception.EntityNotFoundException
 import com.company.repository.RecipeRepository
 import org.springframework.stereotype.Service
 
@@ -15,6 +17,21 @@ class RecipeService(
         return map(saved)
     }
 
+    fun get(id: String): RecipeDto {
+        return map(recipeRepository.findById(id)
+            .orElseThrow { EntityNotFoundException("Can't find recipe by id $id") })
+    }
+
+    fun delete(id: String) {
+        if (recipeRepository.existsById(id)) {
+            recipeRepository.deleteById(id)
+        }
+    }
+
+    fun all(): List<RecipeDto> {
+        return recipeRepository.findAllByUserId(getUserUuid()).map { map(it) }
+    }
+
     private fun map(recipe: RecipeDto): Recipe {
         return Recipe(
             title = recipe.title,
@@ -22,7 +39,8 @@ class RecipeService(
             instructions = recipe.instructions,
             pic = recipe.pic,
             youtubeUrl = recipe.youtubeUrl,
-            ingredients = recipe.ingredients
+            ingredients = recipe.ingredients,
+            userId = getUserUuid(),
         )
     }
 

@@ -27,6 +27,7 @@ data class Recipe(
     @Type(type = "jsonb")
     @Column(name = "ingredients", columnDefinition = "jsonb")
     val ingredients: List<RecipeIngredient>,
+    val userId: String,
 )
 
 data class RecipeIngredient(

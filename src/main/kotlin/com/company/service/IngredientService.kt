@@ -31,7 +31,9 @@ class IngredientService(
     }
 
     fun delete(id: String) {
-        ingredientRepository.deleteById(id)
+        if (ingredientRepository.existsById(id)) {
+            ingredientRepository.deleteById(id)
+        }
     }
 
     fun all(): List<IngredientDto> {

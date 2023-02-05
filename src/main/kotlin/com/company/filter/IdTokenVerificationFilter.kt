@@ -2,7 +2,7 @@ package com.company.filter
 
 import com.company.domain.SocialUser
 import com.company.domain.UserContext
-import com.company.exception.custom.AuthenticationException
+import com.company.exception.AuthenticationException
 import com.company.service.UserService
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken
 import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier
@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
 import org.springframework.web.servlet.HandlerExceptionResolver
+import java.util.logging.Logger
 import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
@@ -22,6 +23,7 @@ class IdTokenVerificationFilter(
 ) : OncePerRequestFilter() {
     private val HEADER_NAME = "Authorization-Google"
     private val IGNORE_ENDPOINTS = arrayOf("/alive")
+    private val log = Logger.getLogger(this.javaClass.name)
 
     override fun doFilterInternal(
         request: HttpServletRequest,
@@ -39,7 +41,7 @@ class IdTokenVerificationFilter(
     }
 
     private fun doFilter(request: HttpServletRequest) {
-        println("doFilter ${request.requestURI}")
+        log.info("doFilter ${request.requestURI}")
         if (IGNORE_ENDPOINTS.contains(request.requestURI)) {
             return
         }

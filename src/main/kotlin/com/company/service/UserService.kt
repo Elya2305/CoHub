@@ -14,10 +14,7 @@ class UserService(
     fun createIfNotPresent(socialUser: SocialUser): String {
         userRepository.findByEmail(socialUser.email)?.let { return it.id }
             ?: return userRepository.save(
-                User(
-                    id = UUID.randomUUID().toString(),
-                    email = socialUser.email
-                )
+                User(email = socialUser.email)
             ).id
     }
 }
