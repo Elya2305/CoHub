@@ -34,6 +34,7 @@ class RecipeService(
 
     private fun map(recipe: RecipeDto): Recipe {
         return Recipe(
+            id = recipe.id,
             title = recipe.title,
             category = recipe.category,
             instructions = recipe.instructions,

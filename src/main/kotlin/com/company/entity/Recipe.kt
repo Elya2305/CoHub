@@ -17,7 +17,7 @@ import javax.persistence.Table
 )
 data class Recipe(
     @Id
-    val id: String = UUID.randomUUID().toString(),
+    val id: String,
     val title: String,
     val category: String,
     @Column(name = "instructions", columnDefinition = "text")

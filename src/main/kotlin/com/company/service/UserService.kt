@@ -4,7 +4,6 @@ import com.company.domain.SocialUser
 import com.company.entity.User
 import com.company.repository.UserRepository
 import org.springframework.stereotype.Service
-import java.util.UUID
 
 @Service
 class UserService(
@@ -12,9 +11,10 @@ class UserService(
 ) {
 
     fun createIfNotPresent(socialUser: SocialUser): String {
-        userRepository.findByEmail(socialUser.email)?.let { return it.id }
-            ?: return userRepository.save(
-                User(email = socialUser.email)
-            ).id
+        val user = userRepository.findByEmail(socialUser.email)
+        if (user != null) {
+            return user.id
+        }
+        return userRepository.save(User(email = socialUser.email)).id
     }
 }

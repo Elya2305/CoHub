@@ -16,7 +16,7 @@ data class CategoryDto(
 )
 
 data class RecipeDto(
-    val id: String?,
+    val id: String,
     val title: String,
     val category: String,
     val instructions: String,
