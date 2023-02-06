@@ -18,7 +18,7 @@ class ExceptionController {
             .body(
                 ErrorResponse(
                     HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                    "Internal exception occurred"
+                    e?.message ?: "Internal server error",
                 )
             )
     }
