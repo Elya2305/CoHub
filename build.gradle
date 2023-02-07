@@ -14,6 +14,7 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web:2.7.8'
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa:2.7.8'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux:2.7.8'
     implementation 'com.google.api-client:google-api-client:2.2.0'
     implementation("org.postgresql:postgresql:42.5.3")
     implementation("com.vladmihalcea:hibernate-types-52:2.21.1")
