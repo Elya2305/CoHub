@@ -22,4 +22,8 @@ class UserService(
     fun getCurrentReference(): User {
         return userRepository.getReferenceById(UserContext.getUserUuid())
     }
+
+    fun get(userId: String): User {
+        return userRepository.findById(userId).orElseThrow()
+    }
 }

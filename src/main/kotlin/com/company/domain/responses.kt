@@ -1,10 +1,11 @@
 package com.company.domain
 
 import com.company.entity.ProjectStatus
+import com.company.entity.RequestStatus
 
 data class ShortUserResponse(
     val id: String,
-    val pic: String,
+    val pic: String?,
 )
 
 data class ProjectResponse(
@@ -25,5 +26,22 @@ data class IdResponse(
 
 data class TagResponse(
     val id: String,
-   val title: String
+    val title: String
+)
+
+data class RequestForUserResponse(
+    val id: String,
+    val title: String,
+    val description: String,
+    val tags: List<String>,
+    val team: List<ShortUserResponse>,
+    val status: RequestStatus,
+    val rejectionReason: String?,
+)
+
+data class RequestForProjectResponse(
+    val id: String,
+    val userId: String,
+    val username: String,
+    val skills: List<String>,
 )

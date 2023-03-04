@@ -20,9 +20,9 @@ data class Request(
     @ManyToOne
     @JoinColumn(name = "project_id", nullable = false)
     val project: Project,
-    val rejectionReason: String? = null,
+    var rejectionReason: String? = null,
     @Enumerated(EnumType.STRING)
-    val status: RequestStatus = RequestStatus.PENDING,
+    var status: RequestStatus = RequestStatus.PENDING,
 )
 
 enum class RequestStatus {

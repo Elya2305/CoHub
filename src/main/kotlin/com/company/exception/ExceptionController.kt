@@ -12,6 +12,7 @@ class ExceptionController {
 
     @ExceptionHandler(Exception::class)
     fun handleInternalException(e: Exception?): ResponseEntity<ErrorResponse> {
+        e?.printStackTrace()
         log.severe("An exception was caught! $e")
         return ResponseEntity
             .status(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -25,6 +26,7 @@ class ExceptionController {
 
     @ExceptionHandler(AuthenticationException::class)
     fun handleAuthenticationException(e: AuthenticationException): ResponseEntity<ErrorResponse> {
+        e.printStackTrace()
         log.severe("An exception was caught! $e")
         return ResponseEntity
             .status(HttpStatus.FORBIDDEN.value())
@@ -38,12 +40,27 @@ class ExceptionController {
 
     @ExceptionHandler(EntityNotFoundException::class)
     fun handleEntityNotFoundException(e: EntityNotFoundException): ResponseEntity<ErrorResponse> {
+        e.printStackTrace()
         log.severe("An exception was caught! $e")
         return ResponseEntity
             .status(HttpStatus.NOT_FOUND.value())
             .body(
                 ErrorResponse(
                     HttpStatus.NOT_FOUND.value(),
+                    e.message!!
+                )
+            )
+    }
+
+    @ExceptionHandler(ForbiddenActionException::class)
+    fun handleEntityNotFoundException(e: ForbiddenActionException): ResponseEntity<ErrorResponse> {
+        e.printStackTrace()
+        log.severe("An exception was caught! $e")
+        return ResponseEntity
+            .status(HttpStatus.FORBIDDEN.value())
+            .body(
+                ErrorResponse(
+                    HttpStatus.FORBIDDEN.value(),
                     e.message!!
                 )
             )

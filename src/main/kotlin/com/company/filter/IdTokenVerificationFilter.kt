@@ -52,6 +52,10 @@ class IdTokenVerificationFilter(
             return processRoot1User()
         }
 
+        if ("root2token" == request.getHeader(HEADER_NAME)) {
+            return processRoot2User()
+        }
+
         val idTokenValue: String = request.getHeader(HEADER_NAME)
             ?: throw AuthenticationException("Id token is missing")
 
@@ -74,6 +78,11 @@ class IdTokenVerificationFilter(
 
     private fun processRoot1User() {
         val userId = userService.createIfNotPresent(SocialUser("root@gmail.com", "root"))
+        UserContext.setUserUuid(userId)
+    }
+
+    private fun processRoot2User() {
+        val userId = userService.createIfNotPresent(SocialUser("root2@gmail.com", "root2"))
         UserContext.setUserUuid(userId)
     }
 }

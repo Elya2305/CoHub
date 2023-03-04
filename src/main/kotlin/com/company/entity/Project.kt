@@ -40,7 +40,7 @@ data class Project(
     val author: User,
     @Type(type = "jsonb")
     @Column(name = "team", columnDefinition = "jsonb", nullable = false)
-    val team: List<ShortUserResponse> = emptyList(),
+    val team: ArrayList<ShortUserResponse> = ArrayList(),
 )
 
 enum class ProjectStatus {

@@ -5,3 +5,7 @@ data class ProjectRequest(
     val description: String,
     val tags: List<String>
 )
+
+data class RejectionReasonRequest(
+    val rejectionReason: String
+)

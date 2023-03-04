@@ -3,6 +3,7 @@ package com.company.service
 import com.company.domain.IdResponse
 import com.company.domain.ProjectRequest
 import com.company.domain.ProjectResponse
+import com.company.domain.ShortUserResponse
 import com.company.domain.UserContext
 import com.company.entity.Project
 import com.company.entity.ProjectStatus
@@ -55,7 +56,7 @@ class ProjectService(
         status = project.status,
         pic = "", // todo,
         isAuthor = project.author.id == UserContext.getUserUuid(),
-        team = project.team
+        team = project.team + listOf(ShortUserResponse(project.author.id, project.author.pic))
     )
 
     fun startProject(id: String) {
@@ -92,6 +93,13 @@ class ProjectService(
 
     fun getReferenceById(projectId: String): Project {
         return projectRepository.getReferenceById(projectId)
+    }
+
+    fun addUserToTeam(userId: String, projectId: String) {
+        val project = fetchFromDb(projectId)
+        val user = userService.get(userId)
+        project.team.add(ShortUserResponse(userId, user.pic))
+        projectRepository.save(project)
     }
 
     private fun isUserParticipant(project: Project) =
