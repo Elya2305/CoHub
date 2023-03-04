@@ -45,3 +45,14 @@ data class RequestForProjectResponse(
     val username: String,
     val skills: List<String>,
 )
+
+data class UserProfileResponse(
+    val id: String,
+    val pic: String?,
+    val username:String,
+    val jobTitle: String?,
+    val skills: List<String>,
+    val description: String?,
+    val linkedinLink: String?,
+    val githubLink: String?,
+)

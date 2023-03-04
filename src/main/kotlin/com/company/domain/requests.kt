@@ -9,3 +9,12 @@ data class ProjectRequest(
 data class RejectionReasonRequest(
     val rejectionReason: String
 )
+
+data class UserProfileRequest(
+    val username:String,
+    val jobTitle: String?,
+    val skills: ArrayList<String>,
+    val description: String?,
+    val linkedinLink: String?,
+    val githubLink: String?,
+)

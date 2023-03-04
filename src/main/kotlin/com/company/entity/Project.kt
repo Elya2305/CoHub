@@ -27,11 +27,13 @@ data class Project(
     @Id
     val id: String = UUID.randomUUID().toString(),
     var title: String,
+    @Column(name = "description", columnDefinition = "text")
     var description: String,
     @Type(type = "list-array")
     @Column(name = "tags", columnDefinition = "text[]", nullable = false)
     var tags: List<String> = emptyList(),
     val resultLink: String? = null,
+    @Column(name = "pic", columnDefinition = "text")
     val pic: String,
     @Enumerated(EnumType.STRING)
     var status: ProjectStatus = OPEN,

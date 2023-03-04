@@ -8,6 +8,7 @@ import com.company.domain.UserContext
 import com.company.entity.ProjectStatus
 import com.company.entity.Request
 import com.company.entity.RequestStatus
+import com.company.exception.EntityNotFoundException
 import com.company.exception.ForbiddenActionException
 import com.company.repository.RequestRepository
 import org.springframework.stereotype.Service
@@ -84,5 +85,5 @@ class RequestService(
         requestRepository.save(request)
     }
 
-    private fun fetchFromDb(id: String) = requestRepository.findById(id).orElseThrow()
+    private fun fetchFromDb(id: String) = requestRepository.findById(id).orElseThrow { EntityNotFoundException(id) }
 }

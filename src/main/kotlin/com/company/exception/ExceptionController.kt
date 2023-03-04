@@ -47,7 +47,7 @@ class ExceptionController {
             .body(
                 ErrorResponse(
                     HttpStatus.NOT_FOUND.value(),
-                    e.message!!
+                    "Can't find entity by id ${e.message!!}"
                 )
             )
     }

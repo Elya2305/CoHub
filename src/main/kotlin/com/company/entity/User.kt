@@ -19,10 +19,16 @@ class User(
     @Id
     val id: String = UUID.randomUUID().toString(),
     val email: String,
-    @Column(unique = true)
-    val username: String,
+    @Column(name = "pic", columnDefinition = "text")
     val pic: String? = null,
+    @Column(unique = true)
+    var username: String,
     @Type(type = "list-array")
     @Column(name = "skills", columnDefinition = "text[]", nullable = false)
-    val skills: ArrayList<String> = ArrayList()
+    var skills: ArrayList<String> = ArrayList(),
+    var linkedinLink: String? = null,
+    var githubLink: String? = null,
+    var jobTitle: String? = null,
+    @Column(name = "description", columnDefinition = "text")
+    var description: String? = null,
 )
