@@ -2,6 +2,6 @@ google:
   audience: 1079591479751-6fiu4a583rtir3o7qbctrs74bjpnh3m1.apps.googleusercontent.com
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/fridge
+    url: jdbc:postgresql://localhost:5432/cohub
     username: postgres
     password: postgres

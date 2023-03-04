@@ -2,7 +2,7 @@ services:
   db:
     image: postgres:14.1
     environment:
-      POSTGRES_DB: "fridge"
+      POSTGRES_DB: "cohub"
       POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "postgres"
     ports:

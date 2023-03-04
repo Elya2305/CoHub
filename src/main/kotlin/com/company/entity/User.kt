@@ -11,6 +11,7 @@ import javax.persistence.Table
 class User(
     @Id
     val id: String = UUID.randomUUID().toString(),
-    @Column(unique = true)
     val email: String,
+    @Column(unique = true)
+    val username: String,
 )
