@@ -23,7 +23,7 @@ class ProjectService(
             description = request.description,
             tags = request.tags,
             pic = "", // todo,
-            author = userService.findById(UserContext.getUserUuid()),
+            author = userService.getCurrentReference(),
         )
         tagService.save(request.tags)
         return IdResponse(projectRepository.save(project).id)
@@ -70,24 +70,33 @@ class ProjectService(
         projectRepository.save(project)
     }
 
-    fun all(status: ProjectStatus?, tags: List<String>?): List<ProjectResponse> {
-        if (tags.isNullOrEmpty()) {
-            if (status == null) {
-                return projectRepository.findAll().map { map(it) }
-            }
-            return projectRepository.findAllByStatus(status).map { map(it) }
+    fun allForUser(status: ProjectStatus?): List<ProjectResponse> {
+        if (status == null) {
+            return projectRepository.findAllByAuthor(userService.getCurrentReference())
+                .filter { o -> isUserParticipant(o) }
+                .map { map(it) }
+        }
+        return projectRepository.findAllByAuthorAndStatus(userService.getCurrentReference(), status)
+            .map { map(it) }
+    }
+
+    fun allOpen(tags: List<String>?): List<ProjectResponse> {
+        return if (tags.isNullOrEmpty()) {
+            projectRepository.findAllByStatus(ProjectStatus.OPEN).map { map(it) }
         } else {
-            if (status == null) {
-                return projectRepository.findAll()
-                    .filter { o -> o.tags.any { i -> tags.contains(i) } }
-                    .map { map(it) }
-            }
-            return projectRepository.findAllByStatus(status)
+            projectRepository.findAllByStatus(ProjectStatus.OPEN)
                 .filter { o -> o.tags.any { i -> tags.contains(i) } }
                 .map { map(it) }
         }
     }
 
-    private fun fetchFromDb(id: String) = projectRepository.findById(id).orElseThrow()
+    fun getReferenceById(projectId: String): Project {
+        return projectRepository.getReferenceById(projectId)
+    }
 
+    private fun isUserParticipant(project: Project) =
+        project.author.id == UserContext.getUserUuid() || project.team.map { it.id }.toList()
+            .contains(UserContext.getUserUuid())
+
+    private fun fetchFromDb(id: String) = projectRepository.findById(id).orElseThrow()
 }

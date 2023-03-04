@@ -19,7 +19,7 @@ class UserService(
         return userRepository.save(User(email = socialUser.email, username = socialUser.username)).id
     }
 
-    fun findById(id: String): User {
-        return userRepository.findById(UserContext.getUserUuid()).orElseThrow()
+    fun getCurrentReference(): User {
+        return userRepository.getReferenceById(UserContext.getUserUuid())
     }
 }

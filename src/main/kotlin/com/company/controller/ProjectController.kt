@@ -22,7 +22,6 @@ class ProjectController(
 ) {
     private val log = Logger.getLogger(this.javaClass.name)
 
-
     @PostMapping
     fun create(@RequestBody projectRequest: ProjectRequest): IdResponse {
         log.info("Request on creating project: $projectRequest")
@@ -48,12 +47,19 @@ class ProjectController(
     }
 
     @GetMapping
-    fun all(
+    fun allForUser(
         @RequestParam(value = "status", required = false) status: ProjectStatus?,
+    ): List<ProjectResponse> {
+        log.info("Request on getting all projects: status = $status")
+        return projectService.allForUser(status)
+    }
+
+    @GetMapping("/open")
+    fun allOpen(
         @RequestParam(value = "tags", required = false) tags: List<String>?
     ): List<ProjectResponse> {
-        log.info("Request on getting all projects: status = $status, tags = $tags")
-        return projectService.all(status, tags)
+        log.info("Request on getting all projects: tags = $tags")
+        return projectService.allOpen(tags)
     }
 
     @PutMapping("/{id}/start")
