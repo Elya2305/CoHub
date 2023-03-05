@@ -45,9 +45,12 @@ class IdTokenVerificationFilter(
         if ("OPTIONS" == request.method) {
             return
         }
-        if (IGNORE_ENDPOINTS.any { request.requestURI.matches(Regex(it)) } && request.method == "GET") {
-            return
+        if (request.getHeader(HEADER_NAME) == null) {
+            if (IGNORE_ENDPOINTS.any { request.requestURI.matches(Regex(it)) } && request.method == "GET") {
+                return
+            }
         }
+
         if ("root1token" == request.getHeader(HEADER_NAME)) {
             return processRoot1User()
         }
