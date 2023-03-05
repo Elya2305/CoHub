@@ -45,6 +45,7 @@ class RequestService(
                     tags = it.project.tags,
                     team = it.project.team + listOf(ShortUserResponse(it.project.author.id, it.project.author.pic)),
                     status = it.status,
+                    projectId = it.project.id,
                     rejectionReason = it.rejectionReason
                 )
             }

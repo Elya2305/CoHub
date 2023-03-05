@@ -31,6 +31,7 @@ data class TagResponse(
 
 data class RequestForUserResponse(
     val id: String,
+    val projectId: String,
     val title: String,
     val description: String,
     val tags: List<String>,
