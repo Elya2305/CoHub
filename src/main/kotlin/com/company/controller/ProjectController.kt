@@ -62,6 +62,15 @@ class ProjectController(
         return projectService.allOpen(tags)
     }
 
+    @GetMapping("/all")
+    fun allByUserAndStatus(
+        @RequestParam("user_id", required = false) userId: String?,
+        @RequestParam("status", required = false) status: ProjectStatus?
+    ): List<ProjectResponse> {
+        log.info("Request on getting all projects: userId = $userId, status = $status")
+        return projectService.allByUserAndStatus(userId, status)
+    }
+
     @PutMapping("/{id}/start")
     fun startProject(@PathVariable id: String) {
         log.info("Request on starting project: $id")

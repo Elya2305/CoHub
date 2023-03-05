@@ -41,6 +41,10 @@ class UserService(
         return userRepository.getReferenceById(UserContext.getUserUuid())
     }
 
+    fun getReferenceById(id: String): User {
+        return userRepository.getReferenceById(id)
+    }
+
     fun get(userId: String): User {
         return getFromDb(userId)
     }

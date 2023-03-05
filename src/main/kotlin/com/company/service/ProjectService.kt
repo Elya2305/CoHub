@@ -115,6 +115,22 @@ class ProjectService(
         projectRepository.save(project)
     }
 
+    fun allByUserAndStatus(userId: String?, status: ProjectStatus?): List<ProjectResponse> {
+        if (userId != null) {
+            if (status != null) {
+                return projectRepository.findAllByAuthorAndStatus(userService.getReferenceById(userId), status)
+                    .map { map(it) }
+            }
+            return projectRepository.findAllByAuthor(userService.getReferenceById(userId)).map { map(it) }
+        } else {
+            if (status != null) {
+                return projectRepository.findAllByStatus(status)
+                    .map { map(it) }
+            }
+            return projectRepository.findAll().map { map(it) }
+        }
+    }
+
     private fun isUserParticipant(project: Project) =
         project.author.id == UserContext.getUserUuid() || project.team.map { it.id }.toList()
             .contains(UserContext.getUserUuid())
