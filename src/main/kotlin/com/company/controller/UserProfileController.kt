@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController
 import java.util.logging.Logger
 
 @RestController
-@RequestMapping("/profile")
+@RequestMapping("/profiles")
 class UserProfileController(
     private val userService: UserService
 ) {

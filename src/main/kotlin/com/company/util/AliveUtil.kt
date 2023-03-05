@@ -21,5 +21,4 @@ class AliveUtil(
             .bodyToMono(String::class.java)
             .block()
     }
-
 }

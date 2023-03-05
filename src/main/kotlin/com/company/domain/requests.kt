@@ -1,5 +1,7 @@
 package com.company.domain
 
+import com.fasterxml.jackson.annotation.JsonProperty
+
 data class ProjectRequest(
     val title: String,
     val description: String,
@@ -7,6 +9,7 @@ data class ProjectRequest(
 )
 
 data class RejectionReasonRequest(
+    @JsonProperty("rejection_reason")
     val rejectionReason: String
 )
 

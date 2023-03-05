@@ -17,9 +17,9 @@ import javax.servlet.http.HttpServletResponse
 
 @Component
 class IdTokenVerificationFilter(
-    val verifier: GoogleIdTokenVerifier,
+    private val verifier: GoogleIdTokenVerifier,
     @Qualifier("handlerExceptionResolver") val exceptionResolver: HandlerExceptionResolver,
-    val userService: UserService,
+    private val userService: UserService,
 ) : OncePerRequestFilter() {
     private val HEADER_NAME = "Authorization-Google"
     private val IGNORE_ENDPOINTS = arrayOf("/alive")
@@ -72,7 +72,7 @@ class IdTokenVerificationFilter(
             throw AuthenticationException("Email is not verified")
         }
 
-        val userId = userService.createIfNotPresent(SocialUser(payload.email, payload.email)) // todo
+        val userId = userService.createIfNotPresent(SocialUser(payload.email, payload.email))
         UserContext.setUserUuid(userId)
     }
 
