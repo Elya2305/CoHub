@@ -53,7 +53,7 @@ class ExceptionController {
     }
 
     @ExceptionHandler(ForbiddenActionException::class)
-    fun handleEntityNotFoundException(e: ForbiddenActionException): ResponseEntity<ErrorResponse> {
+    fun handleForbiddenException(e: ForbiddenActionException): ResponseEntity<ErrorResponse> {
         e.printStackTrace()
         log.severe("An exception was caught! $e")
         return ResponseEntity
@@ -62,6 +62,20 @@ class ExceptionController {
                 ErrorResponse(
                     HttpStatus.FORBIDDEN.value(),
                     e.message!!
+                )
+            )
+    }
+
+    @ExceptionHandler(UsernameAlreadyExistsException::class)
+    fun handleUsernameAlreadyExistsException(e: UsernameAlreadyExistsException): ResponseEntity<ErrorResponse> {
+        e.printStackTrace()
+        log.severe("An exception was caught! $e")
+        return ResponseEntity
+            .status(HttpStatus.BAD_REQUEST.value())
+            .body(
+                ErrorResponse(
+                    HttpStatus.BAD_REQUEST.value(),
+                    "Username ${e.message} is already taken"
                 )
             )
     }

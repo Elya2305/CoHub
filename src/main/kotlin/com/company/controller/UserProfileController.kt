@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.RestController
 import java.util.logging.Logger
 
@@ -33,5 +34,13 @@ class UserProfileController(
         val response = userService.updateProfile(id, request)
         log.info("Response in updating user profile $response")
         return response
+    }
+
+    @GetMapping
+    fun all(
+        @RequestParam(value = "skills", required = false) skills: List<String>?
+    ): List<UserProfileResponse> {
+        log.info("Request in getting all profiles $skills")
+        return userService.getAllProfiles(skills)
     }
 }

@@ -7,7 +7,9 @@ import com.company.domain.UserProfileResponse
 import com.company.entity.User
 import com.company.exception.EntityNotFoundException
 import com.company.exception.ForbiddenActionException
+import com.company.exception.UsernameAlreadyExistsException
 import com.company.repository.UserRepository
+import org.springframework.dao.DataIntegrityViolationException
 import org.springframework.stereotype.Service
 
 @Service
@@ -60,8 +62,19 @@ class UserService(
         user.linkedinLink = request.linkedinLink
         user.skills = request.skills
         user.jobTitle = request.jobTitle
+        try {
+            return map(userRepository.save(user))
+        } catch (e: DataIntegrityViolationException) {
+            throw UsernameAlreadyExistsException(request.username)
+        }
+    }
 
-        return map(userRepository.save(user))
+    fun getAllProfiles(skills: List<String>?): List<UserProfileResponse> {
+        if (skills.isNullOrEmpty()) {
+            return userRepository.findAll().map { map(it) }
+        }
+        return userRepository.findAll().filter { it.skills.any { o -> skills.contains(o) } }
+            .map { map(it) }
     }
 
     private fun getFromDb(id: String) = userRepository.findById(id).orElseThrow { EntityNotFoundException(id) }
