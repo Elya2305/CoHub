@@ -99,7 +99,7 @@ class ProjectService(
             projectRepository.findAllByStatus(ProjectStatus.OPEN).map { map(it) }
         } else {
             projectRepository.findAllByStatus(ProjectStatus.OPEN)
-                .filter { o -> o.tags.any { i -> tags.contains(i) } }
+                .filter { project -> tags.all { project.tags.contains(it) } }
                 .map { map(it) }
         }
     }

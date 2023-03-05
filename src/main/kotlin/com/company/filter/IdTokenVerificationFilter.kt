@@ -22,7 +22,7 @@ class IdTokenVerificationFilter(
     private val userService: UserService,
 ) : OncePerRequestFilter() {
     private val HEADER_NAME = "Authorization-Google"
-    private val IGNORE_ENDPOINTS = arrayOf("\\/alive", "\\/projects\\/open", "\\/projects\\/[a-z0-9-]+")
+    private val IGNORE_ENDPOINTS = arrayOf("\\/alive", "\\/projects\\/open", "\\/projects\\/[a-z0-9-]+", "\\/tags")
     private val log = Logger.getLogger(this.javaClass.name)
 
     override fun doFilterInternal(

@@ -73,7 +73,7 @@ class UserService(
         if (skills.isNullOrEmpty()) {
             return userRepository.findAll().map { map(it) }
         }
-        return userRepository.findAll().filter { it.skills.any { o -> skills.contains(o) } }
+        return userRepository.findAll().filter { user -> skills.all { s -> user.skills.contains(s) } }
             .map { map(it) }
     }
 
