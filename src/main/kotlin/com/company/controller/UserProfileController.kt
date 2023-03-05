@@ -1,5 +1,6 @@
 package com.company.controller
 
+import com.company.domain.UserContext
 import com.company.domain.UserProfileRequest
 import com.company.domain.UserProfileResponse
 import com.company.service.UserService
@@ -20,19 +21,27 @@ class UserProfileController(
 
     private val log = Logger.getLogger(this.javaClass.name)
 
+    @GetMapping("/current")
+    fun getCurrent(): UserProfileResponse {
+        log.info("Request on getting user profile ${UserContext.getUserUuid()!!}")
+        val response = userService.getProfile(UserContext.getUserUuid()!!)
+        log.info("Response on getting user profile $response")
+        return response
+    }
+
     @GetMapping("/{id}")
     fun get(@PathVariable id: String): UserProfileResponse {
-        log.info("Request in getting user profile $id")
+        log.info("Request on getting user profile $id")
         val response = userService.getProfile(id)
-        log.info("Response in getting user profile $response")
+        log.info("Response on getting user profile $response")
         return response
     }
 
     @PutMapping("/{id}")
     fun update(@PathVariable id: String, @RequestBody request: UserProfileRequest): UserProfileResponse {
-        log.info("Request in updating user profile $id $request")
+        log.info("Request on updating user profile $id $request")
         val response = userService.updateProfile(id, request)
-        log.info("Response in updating user profile $response")
+        log.info("Response on updating user profile $response")
         return response
     }
 
@@ -40,7 +49,7 @@ class UserProfileController(
     fun all(
         @RequestParam(value = "skills", required = false) skills: List<String>?
     ): List<UserProfileResponse> {
-        log.info("Request in getting all profiles $skills")
+        log.info("Request on getting all profiles $skills")
         return userService.getAllProfiles(skills)
     }
 }
