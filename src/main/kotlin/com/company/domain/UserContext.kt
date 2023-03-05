@@ -12,7 +12,7 @@ object UserContext {
         userUuid.remove()
     }
 
-    fun getUserUuid(): String {
+    fun getUserUuid(): String? {
         return userUuid.get()
     }
 }

@@ -1,8 +1,5 @@
 # int20h
 
-* Site link https://inth20.web.app/
-* Documentation: https://docs.google.com/document/d/1PwFL15owem8CTlL6Oc7H8GYu1FO-rgEWWhODPjdXhIA/edit#
-* Used API: https://www.themealdb.com/api.php
 * Deployed on https://render.com/
 
 

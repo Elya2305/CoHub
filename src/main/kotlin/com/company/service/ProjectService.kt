@@ -68,7 +68,7 @@ class ProjectService(
         resultLink = project.resultLink,
         status = project.status,
         pic = project.pic,
-        isAuthor = project.author.id == UserContext.getUserUuid(),
+        isAuthor = UserContext.getUserUuid() != null && project.author.id == UserContext.getUserUuid(),
         team = project.team + listOf(ShortUserResponse(project.author.id, project.author.pic))
     )
 
